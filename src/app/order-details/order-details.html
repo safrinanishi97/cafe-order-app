@@ -1,0 +1,526 @@
+<div class="details-page">
+
+  <!-- ========================= -->
+  <!-- HEADER -->
+  <!-- ========================= -->
+
+  <header class="details-header">
+
+    <button
+      class="back-button"
+      type="button"
+      (click)="goBack()"
+      aria-label="Go back"
+    >
+      ←
+    </button>
+
+    <div>
+
+      <h1>
+        Order Details
+      </h1>
+
+      <p>
+        View order information
+      </p>
+
+    </div>
+
+  </header>
+
+
+  <!-- ========================= -->
+  <!-- ORDER FOUND -->
+  <!-- ========================= -->
+
+  @if (order(); as currentOrder) {
+
+    <main class="details-content">
+
+
+      <!-- ========================= -->
+      <!-- ORDER INFORMATION -->
+      <!-- ========================= -->
+
+      <section class="order-info-card">
+
+        <div class="order-title-row">
+
+          <div>
+
+            <span class="label">
+              Order Number
+            </span>
+
+            <h2>
+              #{{ currentOrder.orderNumber }}
+            </h2>
+
+          </div>
+
+
+          <span class="status">
+            {{ currentOrder.status }}
+          </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Section
+          </span>
+
+          <strong>
+            {{ currentOrder.section }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Table
+          </span>
+
+          <strong>
+            Table {{ currentOrder.tableNumber }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Created At
+          </span>
+
+          <strong>
+            {{ currentOrder.createdAt | date:'short' }}
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================= -->
+      <!-- ORDER ITEMS -->
+      <!-- ========================= -->
+
+      <section class="items-card">
+
+        <div class="items-header">
+
+          <h2>
+            Order Items
+          </h2>
+
+          <span class="items-count">
+            {{ currentOrder.items.length }}
+            {{ currentOrder.items.length === 1 ? 'item' : 'items' }}
+          </span>
+
+        </div>
+
+
+        <div class="items-list">
+
+          @for (
+            item of currentOrder.items;
+            track item.variantId
+              ? item.foodId + '_' + item.variantId
+              : item.foodId;
+            let itemIndex = $index
+          ) {
+
+            <article
+              class="item-row"
+              [class.item-completed]="isItemDone(item)"
+            >
+
+
+              <!-- ========================= -->
+              <!-- ITEM MAIN -->
+              <!-- ========================= -->
+
+              <div class="item-main">
+
+                <div class="item-info">
+
+                  <strong class="item-name">
+                    {{ item.foodName }}
+                  </strong>
+
+
+                  @if (item.variantName) {
+
+                    <small class="variant-name">
+                      {{ item.variantName }}
+                    </small>
+
+                  }
+
+
+                  <span class="item-price-info">
+                    {{ item.quantity }}
+                    ×
+                    ৳{{ item.price }}
+                  </span>
+
+                </div>
+
+
+                <strong class="item-total">
+                  ৳{{ getItemTotal(item) }}
+                </strong>
+
+              </div>
+
+
+              <!-- ========================= -->
+              <!-- QUANTITY SUMMARY -->
+              <!-- ========================= -->
+
+              <div class="item-progress">
+
+                <div class="quantity-summary">
+
+
+                  <!-- ORDER -->
+
+                  <div class="quantity-column">
+
+                    <span class="quantity-label">
+                      Order
+                    </span>
+
+                    <strong>
+                      {{ item.quantity }}
+                    </strong>
+
+                  </div>
+
+
+                  <!-- SERVED -->
+
+                  <div class="quantity-column">
+
+                    <span class="quantity-label">
+                      Served
+                    </span>
+
+                    <strong>
+                      {{ getServedQuantity(item) }}
+                    </strong>
+
+                  </div>
+
+
+                  <!-- REMAINING -->
+
+                  <div class="quantity-column">
+
+                    <span class="quantity-label">
+                      Remaining
+                    </span>
+
+                    <strong
+                      [class.remaining-zero]="
+                        getRemainingQuantity(item) === 0
+                      "
+                    >
+                      {{ getRemainingQuantity(item) }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- PROGRESS BAR -->
+                <!-- ========================= -->
+
+                <div class="progress-bar">
+
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="
+                      item.quantity > 0
+                        ? (
+                            getServedQuantity(item)
+                            / item.quantity
+                          ) * 100
+                        : 0
+                    "
+                  ></div>
+
+                </div>
+
+              </div>
+
+
+              <!-- ========================= -->
+              <!-- ITEM ACTION -->
+              <!-- ========================= -->
+
+              <div class="item-action">
+
+
+                <!-- SERVE +1 -->
+
+                <button
+                  type="button"
+                  class="done-button"
+                  [disabled]="
+                    getRemainingQuantity(item) === 0
+                  "
+                  (click)="serveOneItem(itemIndex)"
+                >
+                  Serve +1
+                </button>
+
+
+                <!-- UNDO ALL -->
+
+                <button
+                  type="button"
+                  class="undo-button"
+                  [disabled]="
+                    getServedQuantity(item) === 0
+                  "
+                  (click)="undoAll(itemIndex)"
+                >
+                  Undo All
+                </button>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- ORDER TOTAL -->
+        <!-- ========================= -->
+
+        <div class="order-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+            ৳{{ orderTotal() }}
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================= -->
+      <!-- ORDER ACTIONS -->
+      <!-- ========================= -->
+
+      @if (currentOrder.status === 'active') {
+
+        <section class="actions-card">
+
+          <button
+            class="edit-button"
+            type="button"
+            (click)="editOrder()"
+          >
+            Edit Order
+          </button>
+
+
+          <button
+            class="complete-button"
+            type="button"
+            [disabled]="!areAllItemsDone()"
+            (click)="openCompleteDialog()"
+          >
+            Complete Order
+          </button>
+
+
+          <button
+            class="cancel-button"
+            type="button"
+            (click)="openCancelDialog()"
+          >
+            Cancel Order
+          </button>
+
+        </section>
+
+      }
+
+    </main>
+
+  }
+
+
+  <!-- ========================= -->
+  <!-- ORDER NOT FOUND -->
+  <!-- ========================= -->
+
+  @if (!order()) {
+
+    <main class="not-found">
+
+      <div class="not-found-icon">
+        ⚠️
+      </div>
+
+      <h2>
+        Order not found
+      </h2>
+
+      <p>
+        This order could not be found.
+      </p>
+
+      <button
+        type="button"
+        (click)="goBack()"
+      >
+        Back to Home
+      </button>
+
+    </main>
+
+  }
+
+
+  <!-- ========================= -->
+  <!-- COMPLETE DIALOG -->
+  <!-- ========================= -->
+
+  @if (showCompleteDialog()) {
+
+    <div
+      class="dialog-backdrop"
+      role="presentation"
+    >
+
+      <div
+        class="confirmation-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="complete-dialog-title"
+      >
+
+        <h2 id="complete-dialog-title">
+          Complete Order?
+        </h2>
+
+
+        <p>
+
+          All items have been served.
+
+          Are you sure you want to mark
+          Order #{{ order()?.orderNumber }}
+          as complete?
+
+        </p>
+
+
+        <div class="dialog-actions">
+
+          <button
+            type="button"
+            class="keep-button"
+            (click)="closeCompleteDialog()"
+          >
+            Keep Order
+          </button>
+
+
+          <button
+            type="button"
+            class="complete-confirm-button"
+            (click)="confirmCompleteOrder()"
+          >
+            Complete Order
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- ========================= -->
+  <!-- CANCEL DIALOG -->
+  <!-- ========================= -->
+
+  @if (showCancelDialog()) {
+
+    <div
+      class="dialog-backdrop"
+      role="presentation"
+    >
+
+      <div
+        class="confirmation-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cancel-dialog-title"
+      >
+
+        <h2 id="cancel-dialog-title">
+          Cancel Order?
+        </h2>
+
+
+        <p>
+
+          Are you sure you want to cancel
+          Order #{{ order()?.orderNumber }}?
+
+        </p>
+
+
+        <div class="dialog-actions">
+
+          <button
+            type="button"
+            class="keep-button"
+            (click)="closeCancelDialog()"
+          >
+            Keep Order
+          </button>
+
+
+          <button
+            type="button"
+            class="confirm-cancel-button"
+            (click)="confirmCancelOrder()"
+          >
+            Cancel Order
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,579 @@
+<div class="new-order-page">
+
+  <!-- ========================= -->
+  <!-- HEADER -->
+  <!-- ========================= -->
+
+  <header class="page-header">
+
+    <button
+      class="back-button"
+      type="button"
+      (click)="goBack()"
+      aria-label="Go back"
+    >
+      ←
+    </button>
+
+    <div class="page-header-content">
+
+      <h1>New Order</h1>
+
+      <p>
+        Select food items and quantity
+      </p>
+
+    </div>
+
+  </header>
+
+
+  <main class="order-content">
+
+    <!-- ========================= -->
+    <!-- CATEGORY -->
+    <!-- ========================= -->
+
+    <section class="category-section">
+
+      <div class="section-heading">
+
+        <h2>
+          Categories
+        </h2>
+
+      </div>
+
+
+      <div
+        class="category-list"
+        role="tablist"
+        aria-label="Food categories"
+      >
+
+        @for (
+          category of categories;
+          track category.value
+        ) {
+
+          <button
+            type="button"
+            class="category-button"
+            [class.active]="
+              selectedCategory() === category.value
+            "
+            (click)="
+              selectCategory(category.value)
+            "
+          >
+            {{ category.label }}
+          </button>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- FOOD ITEMS -->
+    <!-- ========================= -->
+
+    <section class="food-section">
+
+      <div class="section-title">
+
+        <h2>
+          {{
+            categories.find(
+              category =>
+                category.value === selectedCategory()
+            )?.label
+          }}
+        </h2>
+
+      </div>
+
+
+      <div class="food-grid">
+
+        @for (
+          food of filteredFoodItems();
+          track food.id
+        ) {
+
+          <article class="food-card">
+
+            <!-- FOOD IMAGE -->
+
+            <div class="food-image">
+
+              @if (food.image) {
+
+                <img
+                  [src]="food.image"
+                  [alt]="food.name"
+                  loading="lazy"
+                />
+
+              }
+
+            </div>
+
+
+            <!-- FOOD INFORMATION -->
+
+            <div class="food-info">
+
+              <h3>
+                {{ food.name }}
+              </h3>
+
+
+              <!-- ========================= -->
+              <!-- VARIANTS -->
+              <!-- ========================= -->
+
+         @if (food.variants?.length) {
+
+            <div class="variant-section">
+
+              <span class="variant-label">
+                Select option
+              </span>
+
+              <div class="variant-list">
+
+                @for (
+                  variant of food.variants;
+                  track variant.id
+                ) {
+
+                  <div
+                    class="variant-row"
+                    [class.active]="
+                      getSelectedVariant(food)?.id === variant.id
+                    "
+                  >
+
+                    <button
+                      type="button"
+                      class="variant-button"
+                      [class.active]="
+                        getSelectedVariant(food)?.id === variant.id
+                      "
+                      (click)="
+                        selectVariant(
+                          food.id,
+                          variant.id
+                        )
+                      "
+                    >
+
+                      <span class="variant-name">
+                        {{ variant.name }}
+                      </span>
+
+                      <strong class="variant-price">
+                        ৳{{ variant.price }}
+                      </strong>
+
+                    </button>
+
+
+                    <div class="variant-quantity-control">
+
+                      <button
+                        type="button"
+                        class="quantity-button"
+                        (click)="
+                          decreaseQuantity(
+                            food.id,
+                            variant.id
+                          )
+                        "
+                        [disabled]="
+                          getQuantity(
+                            food.id,
+                            variant.id
+                          ) === 0
+                        "
+                      >
+                        −
+                      </button>
+
+
+                      <span class="quantity-value">
+                        {{
+                          getQuantity(
+                            food.id,
+                            variant.id
+                          )
+                        }}
+                      </span>
+
+
+                      <button
+                        type="button"
+                        class="quantity-button"
+                        (click)="
+                          increaseQuantity(
+                            food.id,
+                            variant.id
+                          )
+                        "
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </div>
+
+          }
+
+          @if (!food.variants?.length) {
+
+            <div class="food-price">
+              ৳{{ getFoodPrice(food) }}
+            </div>
+
+            <div class="quantity-control">
+
+              <button
+                type="button"
+                class="quantity-button"
+                (click)="decreaseQuantity(food.id)"
+                [disabled]="getQuantity(food.id) === 0"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+
+              <span class="quantity-value">
+                {{ getQuantity(food.id) }}
+              </span>
+
+              <button
+                type="button"
+                class="quantity-button"
+                (click)="increaseQuantity(food.id)"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+
+            </div>
+
+          }
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LOCATION -->
+    <!-- ========================= -->
+
+    <section class="location-section">
+
+      <div class="section-title">
+
+        <h2>
+          Order Location
+        </h2>
+
+      </div>
+
+
+      <div class="location-fields">
+
+        <!-- SECTION -->
+
+        <div class="field-group">
+
+          <label for="section">
+            Section
+          </label>
+
+          <select
+            id="section"
+            [value]="selectedSection()"
+            (change)="onSectionChange($event)"
+          >
+
+            <option value="">
+              Select section
+            </option>
+
+            <option value="indoor">
+              Indoor
+            </option>
+
+            <option value="outdoor">
+              Outdoor
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="field-group">
+
+          <label for="table">
+            Table
+          </label>
+
+          <select
+            id="table"
+            [value]="selectedTable() ?? ''"
+            [disabled]="selectedSection() === ''"
+            (change)="onTableChange($event)"
+          >
+
+            <option value="">
+              Select table
+            </option>
+
+
+            @if (selectedSection() === 'indoor') {
+
+              @for (
+                table of indoorTables;
+                track table
+              ) {
+
+                <option
+                  [value]="table"
+                  [disabled]="isTableOccupied(table)"
+                >
+                  Table {{ table }}
+
+                  @if (isTableOccupied(table)) {
+                    (Occupied)
+                  }
+
+                </option>
+
+              }
+
+            }
+
+
+            @if (selectedSection() === 'outdoor') {
+
+              @for (
+                table of outdoorTables;
+                track table
+              ) {
+
+                <option
+                  [value]="table"
+                  [disabled]="isTableOccupied(table)"
+                >
+                  Table {{ table }}
+
+                  @if (isTableOccupied(table)) {
+                    (Occupied)
+                  }
+
+                </option>
+
+              }
+
+            }
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CURRENT ORDER -->
+    <!-- ========================= -->
+
+    <section class="order-summary">
+
+      <div class="summary-header">
+
+        <h2>
+          Current Order
+        </h2>
+
+        @if (getSelectedFoodCount() > 0) {
+
+          <span class="item-count">
+            {{ getSelectedFoodCount() }} items
+          </span>
+
+        }
+
+      </div>
+
+
+     <div class="summary-list">
+
+        @for (
+          food of foodItems;
+          track food.id
+        ) {
+
+          <!-- NON-VARIANT FOOD -->
+
+          @if (!food.variants?.length) {
+
+            @if (getQuantity(food.id) > 0) {
+
+              <div class="summary-item">
+
+                <div class="summary-food">
+
+                  <span class="food-name">
+                    {{ food.name }}
+                  </span>
+
+                  <span class="quantity">
+                    {{ getQuantity(food.id) }}
+                    ×
+                    ৳{{ food.price }}
+                  </span>
+
+                </div>
+
+                <strong class="item-total">
+                  ৳{{
+                    getQuantity(food.id) *
+                    (food.price ?? 0)
+                  }}
+                </strong>
+
+              </div>
+
+            }
+
+          }
+
+
+      <!-- VARIANT FOOD -->
+
+      @if (food.variants?.length) {
+
+        @for (
+          variant of food.variants;
+          track variant.id
+        ) {
+
+          @if (
+            getQuantity(
+              food.id,
+              variant.id
+            ) > 0
+          ) {
+
+            <div class="summary-item">
+
+              <div class="summary-food">
+
+                <span class="food-name">
+                  {{ food.name }}
+                </span>
+
+                <small>
+                  {{ variant.name }}
+                </small>
+
+                <span class="quantity">
+                  {{
+                    getQuantity(
+                      food.id,
+                      variant.id
+                    )
+                  }}
+                  ×
+                  ৳{{ variant.price }}
+                </span>
+
+              </div>
+
+
+              <strong class="item-total">
+                ৳{{
+                  getQuantity(
+                    food.id,
+                    variant.id
+                  ) * variant.price
+                }}
+              </strong>
+
+            </div>
+
+          }
+
+        }
+
+      }
+
+    }
+
+  </div>
+
+
+      <!-- GRAND TOTAL -->
+
+      <div class="total-row">
+
+        <span>
+          Total
+        </span>
+
+        <strong>
+          ৳{{ orderTotal() }}
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- SAVE -->
+    <!-- ========================= -->
+
+    <div class="save-order-wrapper">
+
+      <button
+        class="save-order-button"
+        type="button"
+        [disabled]="!canSaveOrder()"
+        (click)="saveOrder()"
+      >
+        Save Order
+      </button>
+
+    </div>
+
+
+  </main>
+
+</div>

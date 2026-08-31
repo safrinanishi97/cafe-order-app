@@ -1,0 +1,229 @@
+<div class="history-page">
+
+  <header class="history-header">
+
+    <button
+      class="back-button"
+      type="button"
+      (click)="goBack()"
+    >
+      ←
+    </button>
+
+    <div>
+      <h1>Order History</h1>
+      <p>Served and cancelled orders</p>
+    </div>
+
+  </header>
+
+
+  <main class="history-content">
+    <section class="filter-section">
+
+      <div class="search-box">
+
+        <span class="search-icon">
+          🔍
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search order number..."
+          [value]="searchTerm()"
+          (input)="onSearchChange($event)"
+        />
+
+      </div>
+
+
+      <div class="status-filter">
+
+        <button
+          type="button"
+          [class.active]="selectedStatus() === 'all'"
+          (click)="onStatusChange('all')"
+        >
+          All
+        </button>
+
+        <button
+          type="button"
+          [class.active]="selectedStatus() === 'served'"
+          (click)="onStatusChange('served')"
+        >
+          Served
+        </button>
+
+        <button
+          type="button"
+          [class.active]="selectedStatus() === 'cancelled'"
+          (click)="onStatusChange('cancelled')"
+        >
+          Cancelled
+        </button>
+
+      </div>
+
+    </section>
+    @if (orders().length === 0) {
+
+      <section class="empty-state">
+
+        <div class="empty-icon">
+          🧾
+        </div>
+
+        <h2>No order history</h2>
+
+        <p>
+          Served or cancelled orders will appear here.
+        </p>
+
+      </section>
+
+    }
+
+
+    @if (filteredOrders().length > 0) {
+
+      <section class="history-list">
+
+        @for (order of filteredOrders(); track order.id) {
+
+        <article
+          class="history-card"
+          (click)="openOrder(order.id)"
+        >
+
+          <!-- HEADER -->
+
+          <div class="history-card-header">
+
+            <div>
+
+              <span class="order-label">
+                Order
+              </span>
+
+              <h2>
+                #{{ order.orderNumber }}
+              </h2>
+
+            </div>
+
+
+            @if (order.status === 'served') {
+
+              <span class="status served">
+                ✓ Served
+              </span>
+
+            } @else {
+
+              <span class="status cancelled">
+                ✕ Cancelled
+              </span>
+
+            }
+
+          </div>
+
+
+          <!-- DATE + LOCATION -->
+
+          <div class="history-meta">
+
+            <span>
+              {{ order.createdAt | date:'dd MMM yyyy, h:mm a' }}
+            </span>
+
+            <span>
+              📍 {{ order.section }} · Table {{ order.tableNumber }}
+            </span>
+
+          </div>
+
+
+          <!-- ITEMS -->
+
+          <div class="history-items">
+
+            @for (
+              item of order.items;
+              track item.foodId
+            ) {
+
+              <div class="history-item">
+
+                <div class="item-info">
+
+                  <span>
+                    {{ item.foodName }}
+                  </span>
+
+                  @if (item.variantName) {
+
+                    <small>
+                      {{ item.variantName }}
+                    </small>
+
+                  }
+
+                </div>
+
+
+                <strong>
+                  × {{ item.quantity }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- FOOTER -->
+
+          <div class="history-footer">
+
+            <span>
+              {{ getTotalQuantity(order) }} items
+            </span>
+
+            <strong>
+              Total ৳{{ getOrderTotal(order) }}
+            </strong>
+
+          </div>
+
+        </article>
+
+        }
+
+      </section>
+
+      @if ( orders().length > 0 && filteredOrders().length === 0 ) {
+
+        <section class="no-results">
+
+          <div class="no-results-icon">
+            🔍
+          </div>
+
+          <h2>No matching orders</h2>
+
+          <p>
+            Try a different order number or status.
+          </p>
+
+        </section>
+
+      }
+
+    }
+
+  </main>
+
+</div>

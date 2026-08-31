@@ -1,0 +1,269 @@
+<div class="app-container">
+
+  <header class="app-header">
+    <div>
+      <h1>Cafetoria</h1>
+      <p>Cafe Order Manager</p>
+    </div>
+  </header>
+
+
+  <main class="home-content">
+
+    <button
+      class="new-order-button"
+      type="button"
+      (click)="createNewOrder()"
+    >
+      <span class="icon">+</span>
+
+      <span>
+        <strong>New Order</strong>
+        <small>Take a new customer order</small>
+      </span>
+    </button>
+
+    <button
+      class="history-button"
+      type="button"
+      (click)="openHistory()"
+    >
+      <span class="icon">📋</span>
+
+      <span>
+        <strong>Order History</strong>
+        <small>View served and cancelled orders</small>
+      </span>
+    </button>
+
+
+    <section class="orders-section">
+
+      <div class="section-header">
+
+        <h2>Active Orders</h2>
+
+        <span class="order-count">
+          {{ filteredOrders().length }}
+        </span>
+
+      </div>
+
+      <div class="section-filter">
+
+        <button
+          type="button"
+          [class.active]="selectedSection() === 'all'"
+          (click)="onSectionChange('all')"
+        >
+          All
+        </button>
+
+        <button
+          type="button"
+          [class.active]="selectedSection() === 'indoor'"
+          (click)="onSectionChange('indoor')"
+        >
+          Indoor
+        </button>
+
+        <button
+          type="button"
+          [class.active]="selectedSection() === 'outdoor'"
+          (click)="onSectionChange('outdoor')"
+        >
+          Outdoor
+        </button>
+
+      </div>
+      
+      <div class="table-filter">
+
+  <label for="tableFilter">
+    Table
+  </label>
+
+  <select
+    id="tableFilter"
+    [value]="selectedTable()"
+    (change)="onTableFilterChange($event)"
+  >
+
+    <option value="all">
+      All Tables
+    </option>
+
+
+    @if (selectedSection() === 'indoor') {
+
+      @for (table of indoorTables; track table) {
+
+        <option [value]="table">
+          Table {{ table }}
+        </option>
+
+      }
+
+    }
+
+
+    @if (selectedSection() === 'outdoor') {
+
+      @for (table of outdoorTables; track table) {
+
+        <option [value]="table">
+          Table {{ table }}
+        </option>
+
+      }
+
+    }
+
+  </select>
+
+</div>
+
+
+      @if (orders().length === 0) {
+
+        <div class="empty-state">
+
+          <div class="empty-icon">🧾</div>
+
+          <h3>No active orders</h3>
+
+          <p>
+            New customer orders will appear here.
+          </p>
+
+        </div>
+
+      }
+
+
+      @if (orders().length > 0 && filteredOrders().length === 0) {
+
+        <div class="empty-state">
+
+          <div class="empty-icon">🔍</div>
+
+          <h3>
+            No {{ selectedSection() }} orders
+          </h3>
+
+          <p>
+            There are no active orders in this section.
+          </p>
+
+        </div>
+
+      }
+
+
+      @if (filteredOrders().length > 0) {
+
+        <div class="orders-list">
+
+          @for (order of filteredOrders(); track order.id) {
+
+          <article
+            class="order-card"
+            (click)="openOrder(order.id)"
+          >
+
+            <div class="order-header">
+
+              <div>
+
+                <span class="order-label">
+                  Order
+                </span>
+
+                <h3>
+                  #{{ order.orderNumber }}
+                </h3>
+
+              </div>
+
+              <span class="status">
+                {{ order.status }}
+              </span>
+
+            </div>
+
+
+            <div class="order-location">
+
+               <span>
+                📍 {{ order.section | titlecase }}
+              </span>
+
+              <strong>
+                Table {{ order.tableNumber }}
+              </strong>
+
+            </div>
+
+
+            <div class="order-items">
+
+              @for (
+                item of order.items;
+                track item.foodId
+              ) {
+
+                <div class="order-item">
+
+                  <div class="item-info">
+
+                    <span>
+                      {{ item.foodName }}
+                    </span>
+
+                    @if (item.variantName) {
+
+                      <small>
+                        {{ item.variantName }}
+                      </small>
+
+                    }
+
+                  </div>
+
+
+                  <strong>
+                    × {{ item.quantity }}
+                  </strong>
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="order-footer">
+
+              <span>
+                {{ getTotalQuantity(order) }} items
+              </span>
+
+              <strong>
+                Total ৳{{ getOrderTotal(order) }}
+              </strong>
+
+            </div>
+
+          </article>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+  </main>
+
+</div>
