@@ -1,59 +1,172 @@
-# CafeOrderApp
+# Cafetoria Cafe Order App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+🔗 **Live Demo:** https://cafe-order-app-rust.vercel.app/
 
-## Development server
+A simple and user-friendly cafe order management application built with Angular.  
+The app is designed to help cafe staff quickly create, manage, serve, edit, and track customer orders.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## ✨ Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- 🍔 Create new orders
+- 📋 View active orders
+- 🔢 Automatic order numbering
+- 🪑 Indoor and outdoor table selection
+- 🚫 Prevent selecting occupied tables
+- 🍕 Food categories
+- 🥤 Food variants and sizes
+- ➕ Increase / decrease food quantity
+- 💰 Automatic order total calculation
+- 📦 View order details
+- 🍽️ Serve items individually
+- ↩️ Undo served quantities
+- ✏️ Edit active orders
+- 📜 Order history
+- 🔎 Search order history
+- 🎯 Filter order history by status
+- 💾 LocalStorage-based data persistence
+- 📱 Responsive design for mobile, tablet, and desktop
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Technologies Used
 
-```bash
-ng generate component component-name
-```
+- Angular 21
+- TypeScript
+- HTML
+- SCSS
+- Angular Signals
+- LocalStorage
+- Vercel
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📱 Main Screens
 
-## Building
+### Home
+Provides an overview of active orders and quick access to create a new order.
 
-To build the project run:
+### New Order
+Select food items, variants, quantities, and table information before saving an order.
 
-```bash
-ng build
-```
+### Order Details
+View complete order information, track served quantities, and manage the order status.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Edit Order
+Modify an active order while respecting already-served quantities.
 
-## Running unit tests
+### Order History
+View completed and cancelled orders with search and status filtering.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 💾 Data Storage
 
-## Running end-to-end tests
+This application currently uses the browser's **LocalStorage** to store order information.
 
-For end-to-end (e2e) testing, run:
+No backend database is required for the current version.
 
-```bash
-ng e2e
-```
+> **Note:** Because the app uses LocalStorage, order data is stored separately in each browser/device.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 🚀 Getting Started
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js
+- npm
+- Angular CLI
+
+### Clone the Repository
+
+
+git clone https://github.com/safrinanishi97/cafe-order-app.git
+
+### Navigate to the Project
+- cd cafe-order-app
+
+### Install Dependencies
+- npm install
+
+### Start the Development Server
+- ng serve
+
+### Then open:
+
+http://localhost:4200/
+
+The application will automatically reload when source files are changed.
+
+### 🏗️ Production Build
+
+To create a production build:
+
+- ng build
+
+The generated files will be available inside:
+
+- dist/
+
+### 🌐 Deployment
+
+The application is deployed using Vercel.
+
+#### Live Application
+
+https://app-rust.vercel.app/
+
+Every new push to the connected GitHub repository can automatically trigger a new deployment on Vercel.
+
+### 📂 Project Structure
+
+src/
+├── app/
+│   ├── data/
+│   ├── home/
+│   ├── models/
+│   ├── order-details/
+│   ├── order-history/
+│   ├── orders/
+│   │   ├── edit-order/
+│   │   └── new-order/
+│   ├── services/
+│   └── toast/
+│
+├── public/
+│   └── foods/
+│
+└── ...
+
+### 📌 Current Version
+
+Version: 1.0
+
+The current version is a frontend-only cafe order management application.
+
+Order data is currently stored in the browser using LocalStorage.
+
+### 🔮 Future Improvements
+
+Possible future improvements include:
+
+- Backend API integration
+- Database integration
+- User authentication
+- Multiple staff accounts
+- Cloud-based order synchronization
+- Kitchen display screen
+- Order notifications
+- Printable receipts
+- Sales reports
+- Daily / monthly sales analytics
+- PWA / mobile app support
+
+### 👩‍💻 Author
+
+Safrina Akter
+
+Software Developer
