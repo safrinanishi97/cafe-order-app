@@ -332,6 +332,7 @@
 }
 
 .variant-name {
+  flex: 1 1 auto;
   min-width: 0;
 
   overflow: hidden;
@@ -357,6 +358,39 @@
 
 .variant-button:active {
   transform: scale(0.98);
+}
+
+.variant-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+
+  gap: 8px;
+}
+
+.variant-row .variant-button {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.variant-quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 92px;
+
+  gap: 6px;
+}
+
+.variant-quantity-control .quantity-button {
+  flex-shrink: 0;
+}
+
+.variant-quantity-control .quantity-value {
+  flex-shrink: 0;
+  min-width: 20px;
 }
 
 

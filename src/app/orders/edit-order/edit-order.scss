@@ -343,6 +343,7 @@
 
 
 .variant-info {
+  flex: 1 1 auto;
   min-width: 0;
 
   display: flex;
@@ -369,6 +370,31 @@
   color: #111827;
 
   font-size: 11px;
+}
+
+.variant-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+
+  gap: 8px;
+}
+
+.variant-row .quantity-control {
+  flex: 0 0 auto;
+  min-width: 92px;
+  margin: 0;
+  padding: 0;
+}
+
+.variant-row .quantity-button {
+  flex-shrink: 0;
+}
+
+.variant-row .quantity-value {
+  flex-shrink: 0;
+  min-width: 20px;
 }
 
 
