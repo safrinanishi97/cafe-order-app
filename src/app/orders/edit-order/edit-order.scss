@@ -327,9 +327,11 @@
 
 
 .variant-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
 
   gap: 8px;
 
@@ -343,7 +345,6 @@
 
 
 .variant-info {
-  flex: 1 1 auto;
   min-width: 0;
 
   display: flex;
@@ -370,15 +371,6 @@
   color: #111827;
 
   font-size: 11px;
-}
-
-.variant-row {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-width: 0;
-
-  gap: 8px;
 }
 
 .variant-row .quantity-control {

@@ -361,7 +361,8 @@
 }
 
 .variant-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   width: 100%;
   min-width: 0;
@@ -370,8 +371,22 @@
 }
 
 .variant-row .variant-button {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.variant-row .variant-button .variant-name {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.variant-row .variant-button .variant-price {
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .variant-quantity-control {
