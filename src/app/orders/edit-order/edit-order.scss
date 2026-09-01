@@ -1,6 +1,9 @@
 .edit-order-page {
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
   background: #f5f6f8;
+  touch-action: pan-y;
 }
 
 
@@ -135,6 +138,8 @@
   margin-top: 12px;
 
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
 
   padding: 2px 2px 8px;
 
