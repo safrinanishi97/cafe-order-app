@@ -101,47 +101,55 @@ export class EditOrder {
       value: 'classic-burger',
       label: 'Classic Burger',
     },
-
     {
       value: 'mini-burger',
       label: 'Mini Burger',
     },
-
     {
       value: 'pizza',
       label: 'Pizza',
     },
-
-    {
-      value: 'pasta',
-      label: 'Pasta',
-    },
-
-    {
-      value: 'chowmein',
-      label: 'Chowmein',
-    },
-
     {
       value: 'rice-bowl',
       label: 'Rice Bowl',
     },
-
+    {
+      value: 'pasta',
+      label: 'Pasta',
+    },
+    {
+      value: 'chowmein',
+      label: 'Chowmein',
+    },
+ 
     {
       value: 'meat-box',
       label: 'Meat Box',
     },
-
     {
       value: 'wings',
       label: 'Wings',
     },
-
+      {
+      value: 'thai-soup',
+      label: 'Thai Soup',
+    },
+      {
+      value: 'french-fry',
+      label: 'French Fry',
+    },
+      {
+      value: 'chicken-pakora',
+      label: 'Chicken Pakora',
+    },
+    {
+      value: 'add-option',
+      label: 'Add Option',
+    },
     {
       value: 'drinks',
       label: 'Drinks',
     },
-
   ];
 
 

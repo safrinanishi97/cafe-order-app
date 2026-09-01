@@ -123,6 +123,7 @@ Every new push to the connected GitHub repository can automatically trigger a ne
 
 ### 📂 Project Structure
 
+```
 src/
 ├── app/
 │   ├── data/
@@ -140,6 +141,7 @@ src/
 │   └── foods/
 │
 └── ...
+```
 
 ### 📌 Current Version
 
