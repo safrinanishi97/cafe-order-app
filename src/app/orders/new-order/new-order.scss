@@ -361,9 +361,9 @@
 }
 
 .variant-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   width: 100%;
   min-width: 0;
 
@@ -393,8 +393,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-  min-width: 92px;
+  width: 100%;
+  min-width: 0;
 
   gap: 6px;
 }
