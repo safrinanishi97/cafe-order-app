@@ -70,6 +70,10 @@ export class NewOrder {
       label: 'Pizza',
     },
     {
+      value: 'rice-bowl',
+      label: 'Rice Bowl',
+    },
+    {
       value: 'pasta',
       label: 'Pasta',
     },
@@ -77,10 +81,7 @@ export class NewOrder {
       value: 'chowmein',
       label: 'Chowmein',
     },
-    {
-      value: 'rice-bowl',
-      label: 'Rice Bowl',
-    },
+ 
     {
       value: 'meat-box',
       label: 'Meat Box',
@@ -88,6 +89,22 @@ export class NewOrder {
     {
       value: 'wings',
       label: 'Wings',
+    },
+      {
+      value: 'thai-soup',
+      label: 'Thai Soup',
+    },
+      {
+      value: 'french-fry',
+      label: 'French Fry',
+    },
+      {
+      value: 'chicken-pakora',
+      label: 'Chicken Pakora',
+    },
+    {
+      value: 'add-option',
+      label: 'Add Option',
     },
     {
       value: 'drinks',
