@@ -34,7 +34,135 @@
 
     <main class="order-content">
 
+      
+      <!-- ========================= -->
+      <!-- CUSTOMER LOCATION -->
+      <!-- ========================= -->
 
+      <section class="location-section">
+
+        <div class="section-title">
+
+          <h2>
+            Order Location
+          </h2>
+
+        </div>
+
+
+        <div class="location-fields">
+
+
+          <!-- SECTION -->
+
+          <div class="field-group">
+
+            <label for="section">
+              Section
+            </label>
+
+
+            <select
+              id="section"
+              [value]="selectedSection()"
+              (change)="onSectionChange($event)"
+            >
+
+              <option value="">
+                Select section
+              </option>
+
+              <option value="indoor">
+                Indoor
+              </option>
+
+              <option value="outdoor">
+                Outdoor
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- TABLE -->
+
+          <div class="field-group">
+
+            <label for="table">
+              Table
+            </label>
+
+            <select
+              id="table"
+              [disabled]="selectedSection() === ''"
+              (change)="onTableChange($event)"
+            >
+
+              <option
+                value=""
+                [selected]="selectedTable() === null"
+              >
+                Select table
+              </option>
+
+
+              @if (selectedSection() === 'indoor') {
+
+                @for (
+                  table of indoorTables;
+                  track table
+                ) {
+
+                  <option
+                    [value]="table"
+                    [selected]="selectedTable() === table"
+                    [disabled]="isTableOccupied(table)"
+                  >
+                    Table {{ table }}
+
+                    @if (isTableOccupied(table)) {
+                      (Occupied)
+                    }
+
+                  </option>
+
+                }
+
+              }
+
+
+              @if (selectedSection() === 'outdoor') {
+
+                @for (
+                  table of outdoorTables;
+                  track table
+                ) {
+
+                  <option
+                    [value]="table"
+                    [selected]="selectedTable() === table"
+                    [disabled]="isTableOccupied(table)"
+                  >
+                    Table {{ table }}
+
+                    @if (isTableOccupied(table)) {
+                      (Occupied)
+                    }
+
+                  </option>
+
+                }
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </section>
       <!-- ========================= -->
       <!-- CATEGORY -->
       <!-- ========================= -->
@@ -209,7 +337,7 @@
 
                         <div class="variant-row">
 
-                          <div class="variant-info">
+                          <div class="variant-button">
 
                             <span class="variant-name">
                               {{ variant.name }}
@@ -293,136 +421,6 @@
             </article>
 
           }
-
-        </div>
-
-      </section>
-
-
-      <!-- ========================= -->
-      <!-- CUSTOMER LOCATION -->
-      <!-- ========================= -->
-
-      <section class="location-section">
-
-        <div class="section-title">
-
-          <h2>
-            Order Location
-          </h2>
-
-        </div>
-
-
-        <div class="location-fields">
-
-
-          <!-- SECTION -->
-
-          <div class="field-group">
-
-            <label for="section">
-              Section
-            </label>
-
-
-            <select
-              id="section"
-              [value]="selectedSection()"
-              (change)="onSectionChange($event)"
-            >
-
-              <option value="">
-                Select section
-              </option>
-
-              <option value="indoor">
-                Indoor
-              </option>
-
-              <option value="outdoor">
-                Outdoor
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <!-- TABLE -->
-
-          <div class="field-group">
-
-            <label for="table">
-              Table
-            </label>
-
-            <select
-              id="table"
-              [disabled]="selectedSection() === ''"
-              (change)="onTableChange($event)"
-            >
-
-              <option
-                value=""
-                [selected]="selectedTable() === null"
-              >
-                Select table
-              </option>
-
-
-              @if (selectedSection() === 'indoor') {
-
-                @for (
-                  table of indoorTables;
-                  track table
-                ) {
-
-                  <option
-                    [value]="table"
-                    [selected]="selectedTable() === table"
-                    [disabled]="isTableOccupied(table)"
-                  >
-                    Table {{ table }}
-
-                    @if (isTableOccupied(table)) {
-                      (Occupied)
-                    }
-
-                  </option>
-
-                }
-
-              }
-
-
-              @if (selectedSection() === 'outdoor') {
-
-                @for (
-                  table of outdoorTables;
-                  track table
-                ) {
-
-                  <option
-                    [value]="table"
-                    [selected]="selectedTable() === table"
-                    [disabled]="isTableOccupied(table)"
-                  >
-                    Table {{ table }}
-
-                    @if (isTableOccupied(table)) {
-                      (Occupied)
-                    }
-
-                  </option>
-
-                }
-
-              }
-
-            </select>
-
-          </div>
 
         </div>
 
