@@ -317,12 +317,12 @@
 
   padding: 7px 9px;
 
-  border: 1px solid #d1d5db;
+  border: 1px solid #696c6d;
   border-radius: 8px;
 
-  background: #ffffff;
-
-  color: #374151;
+  background:  #696c6d;
+  
+  color: #ffffff;
 
   font-size: 13px;
 
@@ -348,14 +348,6 @@
   flex-shrink: 0;
 
   font-size: 13px;
-}
-
-.variant-button {
-  background: #5a5a5a;
-
-  border-color: #5a5a5a;
-
-  color: #ffffff;
 }
 
 .variant-button:active {
