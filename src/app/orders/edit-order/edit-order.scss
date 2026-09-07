@@ -39,10 +39,10 @@
   align-items: center;
   justify-content: center;
 
-  border: none;
-  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
 
-  background: #f3f4f6;
+  background: #ffffff;
 
   color: #111827;
 
@@ -51,7 +51,20 @@
 
   cursor: pointer;
 
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+
   -webkit-tap-highlight-color: transparent;
+}
+
+.back-button:hover {
+  border-color: #d1d1d3;
+  background: #d1d1d3;
+  transform: translateX(-2px);
+}
+
+.back-button:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
 }
 
 
