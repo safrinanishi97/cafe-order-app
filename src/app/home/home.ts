@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OrderService } from '../services/order';
 import { Order } from '../models/order.model';
 import { TitleCasePipe } from '@angular/common';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class Home {
 
   private readonly router = inject(Router);
   private readonly orderService = inject(OrderService);
+  private readonly authService = inject(AuthService);
 
   protected readonly orders = this.orderService.activeOrders;
 
@@ -86,6 +88,11 @@ export class Home {
 
   protected openHistory(): void {
     this.router.navigate(['/order-history']);
+  }
+
+  protected logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   protected onSectionChange( section: 'all' | 'indoor' | 'outdoor'): void {
