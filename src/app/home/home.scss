@@ -105,6 +105,51 @@
   font-weight: 600;
 }
 
+.order-search {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin-top: 16px;
+
+  label {
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    min-height: 42px;
+
+    padding: 10px 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #111827;
+
+    font-size: 14px;
+
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #111827;
+    }
+  }
+}
+
+mark {
+  padding: 0 2px;
+
+  border-radius: 2px;
+
+  background: #fef08a;
+  color: inherit;
+}
+
 .empty-state {
   margin-top: 16px;
   padding: 40px 20px;
@@ -190,7 +235,7 @@
 
   border-top: 1px solid #f0f0f0;
 
-  font-size: 14px;
+  font-size: 15px;
 
   strong {
     font-weight: 600;
@@ -344,11 +389,11 @@
 .item-info small {
   color: #6b7280;
 
-  font-size: 11px;
+  font-size: 15px;
 }
 
 .order-item > strong {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .order-footer {

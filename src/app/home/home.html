@@ -49,6 +49,17 @@
 
       </div>
 
+      <div class="order-search">
+        <label for="orderSearch">Search orders</label>
+        <input
+          id="orderSearch"
+          type="search"
+          placeholder="Item, order, table, or location"
+          [value]="searchTerm()"
+          (input)="onSearchChange($event)"
+        />
+      </div>
+
       <div class="section-filter">
 
         <button
@@ -180,7 +191,13 @@
                 </span>
 
                 <h3>
-                  #{{ order.orderNumber }}
+                  #@for (segment of getHighlightedText(order.orderNumber); track $index) {
+                    @if (segment.matched) {
+                      <mark>{{ segment.text }}</mark>
+                    } @else {
+                      {{ segment.text }}
+                    }
+                  }
                 </h3>
 
               </div>
@@ -195,11 +212,23 @@
             <div class="order-location">
 
                <span>
-                📍 {{ order.section | titlecase }}
+                📍 @for (segment of getHighlightedText(order.section); track $index) {
+                  @if (segment.matched) {
+                    <mark>{{ segment.text | titlecase }}</mark>
+                  } @else {
+                    {{ segment.text | titlecase }}
+                  }
+                }
               </span>
 
               <strong>
-                Table {{ order.tableNumber }}
+                Table @for (segment of getHighlightedText(order.tableNumber); track $index) {
+                  @if (segment.matched) {
+                    <mark>{{ segment.text }}</mark>
+                  } @else {
+                    {{ segment.text }}
+                  }
+                }
               </strong>
 
             </div>
@@ -217,13 +246,25 @@
                   <div class="item-info">
 
                     <span>
-                      {{ item.foodName }}
+                      @for (segment of getHighlightedText(item.foodName); track $index) {
+                        @if (segment.matched) {
+                          <mark>{{ segment.text }}</mark>
+                        } @else {
+                          {{ segment.text }}
+                        }
+                      }
                     </span>
 
                     @if (item.variantName) {
 
                       <small>
-                        {{ item.variantName }}
+                        @for (segment of getHighlightedText(item.variantName); track $index) {
+                          @if (segment.matched) {
+                            <mark>{{ segment.text }}</mark>
+                          } @else {
+                            {{ segment.text }}
+                          }
+                        }
                       </small>
 
                     }
