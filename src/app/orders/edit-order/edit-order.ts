@@ -171,6 +171,101 @@ export class EditOrder {
 
 
   // =========================
+  // ALREADY ADDED ITEMS
+  // =========================
+
+  protected readonly selectedItems =
+    computed(() => {
+
+      const items: {
+        foodId: number;
+        variantId?: string;
+        name: string;
+        quantity: number;
+        category: FoodCategory;
+      }[] = [];
+
+      for (const food of this.foodItems) {
+
+        if (food.variants?.length) {
+
+          for (const variant of food.variants) {
+
+            const quantity =
+              this.getQuantity(
+                food.id,
+                variant.id
+              );
+
+            if (quantity > 0) {
+
+              items.push({
+                foodId: food.id,
+                variantId: variant.id,
+                name: `${food.name} (${variant.name})`,
+                quantity,
+                category: food.category,
+              });
+            }
+          }
+
+        } else {
+
+          const quantity =
+            this.getQuantity(food.id);
+
+          if (quantity > 0) {
+
+            items.push({
+              foodId: food.id,
+              name: food.name,
+              quantity,
+              category: food.category,
+            });
+          }
+        }
+      }
+
+      return items;
+    });
+
+
+  // Count of already-added items per category, shown as a badge on category tabs.
+  private readonly categoryItemCounts =
+    computed(() => {
+
+      const counts: Partial<
+        Record<FoodCategory, number>
+      > = {};
+
+      for (const item of this.selectedItems()) {
+
+        counts[item.category] =
+          (counts[item.category] ?? 0) +
+          item.quantity;
+      }
+
+      return counts;
+    });
+
+
+  protected getCategoryCount(
+    category: FoodCategory
+  ): number {
+
+    return this.categoryItemCounts()[category] ?? 0;
+  }
+
+
+  protected jumpToItem(
+    category: FoodCategory
+  ): void {
+
+    this.selectCategory(category);
+  }
+
+
+  // =========================
   // QUANTITY
   // =========================
 

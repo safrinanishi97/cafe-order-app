@@ -16,7 +16,7 @@
       ←
     </button>
 
-    <div>
+    <div class="header-title">
 
       <h1>
         Order Details
@@ -27,6 +27,18 @@
       </p>
 
     </div>
+
+    @if (order()?.status === 'active') {
+
+      <button
+        class="header-edit-button"
+        type="button"
+        (click)="editOrder()"
+      >
+        Edit Order
+      </button>
+
+    }
 
   </header>
 
@@ -61,11 +73,31 @@
           </div>
 
 
-          <span class="status">
+          <span
+            class="status"
+            [class.status-active]="currentOrder.status === 'active'"
+            [class.status-served]="currentOrder.status === 'served'"
+            [class.status-cancelled]="currentOrder.status === 'cancelled'"
+          >
             {{ currentOrder.status }}
           </span>
 
         </div>
+
+
+        @if (currentOrder.status === 'active') {
+
+          <button
+            class="cooking-toggle"
+            type="button"
+            [class.active]="currentOrder.isCooking"
+            (click)="toggleCooking()"
+          >
+            <span class="icon">🍳</span>
+            {{ currentOrder.isCooking ? 'Cooking' : 'Tell Cook' }}
+          </button>
+
+        }
 
 
         <div class="info-row">
@@ -334,16 +366,7 @@
 
       @if (currentOrder.status === 'active') {
 
-        <section class="actions-card">
-
-          <button
-            class="edit-button"
-            type="button"
-            (click)="editOrder()"
-          >
-            Edit Order
-          </button>
-
+        <section class="actions-card actions-bar">
 
           <button
             class="complete-button"
@@ -358,6 +381,7 @@
           <button
             class="cancel-button"
             type="button"
+            [disabled]="areAllItemsDone()"
             (click)="openCancelDialog()"
           >
             Cancel Order

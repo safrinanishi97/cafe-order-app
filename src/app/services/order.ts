@@ -209,6 +209,37 @@ export class OrderService {
 
 
   // =========================
+  // TOGGLE COOKING FLAG
+  // =========================
+
+  toggleCooking(
+    orderId: number
+  ): void {
+
+    const updatedOrders =
+      this.ordersSignal().map(
+        order =>
+          order.id === orderId
+            ? {
+                ...order,
+                isCooking: !order.isCooking,
+              }
+            : order
+      );
+
+
+    this.ordersSignal.set(
+      updatedOrders
+    );
+
+
+    this.saveToStorage(
+      updatedOrders
+    );
+  }
+
+
+  // =========================
   // NEXT ORDER NUMBER
   // =========================
 

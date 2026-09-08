@@ -86,6 +86,11 @@ export class Home {
     this.router.navigate(['/orders', orderId]);
   }
 
+  protected toggleCooking(event: Event, orderId: number): void {
+    event.stopPropagation();
+    this.orderService.toggleCooking(orderId);
+  }
+
   protected openHistory(): void {
     this.router.navigate(['/order-history']);
   }

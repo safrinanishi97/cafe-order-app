@@ -13,31 +13,31 @@
 
   <main class="home-content">
 
-    <button
-      class="new-order-button"
-      type="button"
-      (click)="createNewOrder()"
-    >
-      <span class="icon">+</span>
+    <div class="quick-actions">
 
-      <span>
+      <button
+        class="quick-action-button primary"
+        type="button"
+        (click)="createNewOrder()"
+      >
+        <span class="icon">+</span>
+
         <strong>New Order</strong>
-        <small>Take a new customer order</small>
-      </span>
-    </button>
+        <small>Take a new order</small>
+      </button>
 
-    <button
-      class="history-button"
-      type="button"
-      (click)="openHistory()"
-    >
-      <span class="icon">📋</span>
+      <button
+        class="quick-action-button"
+        type="button"
+        (click)="openHistory()"
+      >
+        <span class="icon">📋</span>
 
-      <span>
         <strong>Order History</strong>
-        <small>View served and cancelled orders</small>
-      </span>
-    </button>
+        <small>Served &amp; cancelled</small>
+      </button>
+
+    </div>
 
 
     <section class="orders-section">
@@ -182,6 +182,7 @@
 
           <article
             class="order-card"
+            [class.is-cooking]="order.isCooking"
             (click)="openOrder(order.id)"
           >
 
@@ -210,6 +211,16 @@
               </span>
 
             </div>
+
+            <button
+              class="cooking-toggle"
+              type="button"
+              [class.active]="order.isCooking"
+              (click)="toggleCooking($event, order.id)"
+            >
+              <span class="icon">🍳</span>
+              {{ order.isCooking ? 'Cooking' : 'Tell Cook' }}
+            </button>
 
 
             <div class="order-location">

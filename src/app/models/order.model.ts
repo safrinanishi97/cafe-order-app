@@ -21,4 +21,7 @@ export interface Order {
   items: OrderItem[];
   createdAt: string;
   status: 'active' | 'served' | 'cancelled';
+
+  // True once the cook has been told to prepare this order.
+  isCooking?: boolean;
 }

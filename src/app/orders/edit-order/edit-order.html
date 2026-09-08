@@ -164,6 +164,58 @@
         </div>
 
       </section>
+
+
+      <!-- ========================= -->
+      <!-- ALREADY ADDED ITEMS -->
+      <!-- ========================= -->
+
+      @if (selectedItems().length > 0) {
+
+        <section class="added-items-section">
+
+          <div class="section-title">
+
+            <h2>
+              Already Added
+            </h2>
+
+            <span class="added-items-count">
+              {{ totalQuantity() }}
+            </span>
+
+          </div>
+
+          <div class="added-items-list">
+
+            @for (
+              item of selectedItems();
+              track item.foodId + '_' + (item.variantId ?? '')
+            ) {
+
+              <button
+                type="button"
+                class="added-item-chip"
+                (click)="jumpToItem(item.category)"
+              >
+                <span class="chip-name">
+                  {{ item.name }}
+                </span>
+
+                <span class="chip-quantity">
+                  × {{ item.quantity }}
+                </span>
+              </button>
+
+            }
+
+          </div>
+
+        </section>
+
+      }
+
+
       <!-- ========================= -->
       <!-- CATEGORY -->
       <!-- ========================= -->
@@ -201,6 +253,12 @@
               "
             >
               {{ category.label }}
+
+              @if (getCategoryCount(category.value) > 0) {
+                <span class="category-badge">
+                  {{ getCategoryCount(category.value) }}
+                </span>
+              }
             </button>
 
           }
@@ -237,7 +295,12 @@
             track food.id
           ) {
 
-            <article class="food-card">
+            <article
+              class="food-card"
+              [class.has-quantity]="
+                getQuantity(food.id) > 0
+              "
+            >
 
 
               <!-- IMAGE -->
@@ -336,7 +399,12 @@
                         track variant.id
                       ) {
 
-                        <div class="variant-row">
+                        <div
+                          class="variant-row"
+                          [class.has-quantity]="
+                            getQuantity(food.id, variant.id) > 0
+                          "
+                        >
 
                           <div class="variant-button">
 

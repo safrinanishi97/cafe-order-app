@@ -135,6 +135,77 @@
 
 
 /* ========================= */
+/* ALREADY ADDED ITEMS */
+/* ========================= */
+
+.added-items-section {
+  margin-bottom: 22px;
+}
+
+
+.added-items-count {
+  min-width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background: #111827;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+.added-items-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+
+.added-item-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #fbbf24;
+  border-radius: 999px;
+
+  background: #fffbeb;
+  color: #92400e;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.added-item-chip:active {
+  transform: scale(0.97);
+}
+
+
+.chip-quantity {
+  color: #b45309;
+  font-weight: 700;
+}
+
+
+/* ========================= */
 /* CATEGORY */
 /* ========================= */
 
@@ -207,6 +278,33 @@
 }
 
 
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 18px;
+  height: 18px;
+
+  margin-left: 6px;
+  padding: 0 5px;
+
+  border-radius: 999px;
+
+  background: #f59e0b;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+.category-button.active .category-badge {
+  background: #ffffff;
+  color: #111827;
+}
+
+
 /* ========================= */
 /* FOOD SECTION */
 /* ========================= */
@@ -247,8 +345,17 @@
 
   border-radius: 16px;
 
+  border: 2px solid transparent;
+
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.05);
+
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.has-quantity {
+    border-color: #f59e0b;
+    background: #fffbeb;
+  }
 }
 
 
@@ -395,6 +502,19 @@
   min-width: 0;
 
   gap: 8px;
+
+  padding: 8px;
+
+  border-radius: 10px;
+
+  border: 2px solid transparent;
+
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.has-quantity {
+    border-color: #f59e0b;
+    background: #fffbeb;
+  }
 }
 
 .variant-row .variant-button {

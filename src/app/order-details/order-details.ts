@@ -114,6 +114,22 @@ export class OrderDetails {
 
 
   // =========================
+  // COOKING FLAG
+  // =========================
+
+  protected toggleCooking(): void {
+
+    const currentOrder = this.order();
+
+    if (!currentOrder) {
+      return;
+    }
+
+    this.orderService.toggleCooking(currentOrder.id);
+  }
+
+
+  // =========================
   // ITEM TOTAL
   // =========================
 
@@ -337,6 +353,10 @@ export class OrderDetails {
   // =========================
 
   protected openCancelDialog(): void {
+
+    if (this.areAllItemsDone()) {
+      return;
+    }
 
     this.showCancelDialog.set(true);
   }

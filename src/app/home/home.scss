@@ -29,21 +29,33 @@
   padding: 20px;
 }
 
-.new-order-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
 
-  padding: 18px;
-  border: none;
+.quick-action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  padding: 18px 12px;
+  border: 1px solid #e5e7eb;
   border-radius: 16px;
 
-  background: #111827;
-  color: #ffffff;
+  background: #ffffff;
+  color: #111827;
 
   cursor: pointer;
-  text-align: left;
+  text-align: center;
+
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    border-color: #111827;
+  }
 
   .icon {
     width: 44px;
@@ -54,24 +66,39 @@
     justify-content: center;
 
     border-radius: 12px;
-    background: #ffffff;
-    color: #111827;
+    background: #111827;
+    color: #ffffff;
 
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 300;
   }
 
   strong {
-    display: block;
-    font-size: 17px;
+    font-size: 15px;
   }
 
   small {
-    display: block;
-    margin-top: 4px;
+    color: #6b7280;
+    font-size: 12px;
+  }
 
-    color: #d1d5db;
-    font-size: 13px;
+  &.primary {
+    background: #111827;
+    color: #ffffff;
+
+    &:hover {
+      border-color: #111827;
+      background: #1f2937;
+    }
+
+    .icon {
+      background: #ffffff;
+      color: #111827;
+    }
+
+    small {
+      color: #d1d5db;
+    }
   }
 }
 
@@ -246,54 +273,6 @@ mark {
   cursor: pointer;
 }
 
-.history-button {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  margin-top: 12px;
-  padding: 16px;
-
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-
-  background: #ffffff;
-  color: #111827;
-
-  cursor: pointer;
-  text-align: left;
-
-  .icon {
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 12px;
-    background: #f3f4f6;
-
-    font-size: 20px;
-  }
-
-  strong {
-    display: block;
-    font-size: 16px;
-  }
-
-  small {
-    display: block;
-
-    margin-top: 4px;
-
-    color: #6b7280;
-    font-size: 13px;
-  }
-}
-
 .order-card {
   margin-top: 14px;
   padding: 16px;
@@ -306,7 +285,51 @@ mark {
 
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.05);
+
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.is-cooking {
+    border-color: #f59e0b;
+    background: #fffbeb;
+  }
 }
+
+.cooking-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 12px;
+  padding: 9px 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #374151;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  .icon {
+    font-size: 16px;
+  }
+
+  &.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #ffffff;
+  }
+}
+
 
 .order-header {
   display: flex;
