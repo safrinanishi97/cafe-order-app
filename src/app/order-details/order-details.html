@@ -304,37 +304,41 @@
               <!-- ITEM ACTION -->
               <!-- ========================= -->
 
-              <div class="item-action">
+              @if (currentOrder.status === 'active') {
+
+                <div class="item-action">
 
 
-                <!-- SERVE +1 -->
+                  <!-- SERVE +1 -->
 
-                <button
-                  type="button"
-                  class="done-button"
-                  [disabled]="
-                    getRemainingQuantity(item) === 0
-                  "
-                  (click)="serveOneItem(itemIndex)"
-                >
-                  Serve +1
-                </button>
+                  <button
+                    type="button"
+                    class="done-button"
+                    [disabled]="
+                      getRemainingQuantity(item) === 0
+                    "
+                    (click)="serveOneItem(itemIndex)"
+                  >
+                    Serve +1
+                  </button>
 
 
-                <!-- UNDO ALL -->
+                  <!-- UNDO ALL -->
 
-                <button
-                  type="button"
-                  class="undo-button"
-                  [disabled]="
-                    getServedQuantity(item) === 0
-                  "
-                  (click)="undoAll(itemIndex)"
-                >
-                  Undo All
-                </button>
+                  <button
+                    type="button"
+                    class="undo-button"
+                    [disabled]="
+                      getServedQuantity(item) === 0
+                    "
+                    (click)="undoAll(itemIndex)"
+                  >
+                    Undo All
+                  </button>
 
-              </div>
+                </div>
+
+              }
 
             </article>
 

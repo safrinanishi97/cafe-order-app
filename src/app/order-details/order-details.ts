@@ -193,7 +193,7 @@ export class OrderDetails {
 
     const currentOrder = this.order();
 
-    if (!currentOrder) {
+    if (!currentOrder || currentOrder.status !== 'active') {
       return;
     }
 
@@ -255,7 +255,7 @@ export class OrderDetails {
 
     const currentOrder = this.order();
 
-    if (!currentOrder) {
+    if (!currentOrder || currentOrder.status !== 'active') {
       return;
     }
 
