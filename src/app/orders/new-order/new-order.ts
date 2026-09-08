@@ -130,6 +130,53 @@ export class NewOrder {
   }
 
 
+  // =========================
+  // CATEGORY ITEM COUNT
+  // =========================
+
+  // Count of items added per category, shown as a badge on category tabs.
+  private readonly categoryItemCounts =
+    computed(() => {
+
+      const counts: Partial<
+        Record<FoodCategory, number>
+      > = {};
+
+      for (const food of this.foodItems) {
+
+        const quantity =
+          food.variants?.length
+            ? food.variants.reduce(
+                (total, variant) =>
+                  total +
+                  this.getQuantity(
+                    food.id,
+                    variant.id
+                  ),
+                0
+              )
+            : this.getQuantity(food.id);
+
+        if (quantity > 0) {
+
+          counts[food.category] =
+            (counts[food.category] ?? 0) +
+            quantity;
+        }
+      }
+
+      return counts;
+    });
+
+
+  protected getCategoryCount(
+    category: FoodCategory
+  ): number {
+
+    return this.categoryItemCounts()[category] ?? 0;
+  }
+
+
   protected onSectionChange(event: Event): void {
 
     const selectElement =

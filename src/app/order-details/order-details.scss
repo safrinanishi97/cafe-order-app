@@ -276,7 +276,12 @@
    ========================= */
 
 .items-list {
-  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 12px;
 }
 
 /* =========================
@@ -289,17 +294,17 @@
 
   gap: 14px;
 
-  padding: 16px 0;
+  padding: 16px;
 
-  border-bottom: 1px solid #f0f0f0;
+  border: 1px solid #dddddd;
+  border-radius: 14px;
 
-  &:last-child {
-    border-bottom: none;
-  }
+  background: #dddddd;
 }
 
 .item-completed {
-  background: #fcfffd;
+  background: #dfebeb;
+  border-color: #dfecec;
 }
 
 /* =========================

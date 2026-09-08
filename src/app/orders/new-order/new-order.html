@@ -195,6 +195,12 @@
             "
           >
             {{ category.label }}
+
+            @if (getCategoryCount(category.value) > 0) {
+              <span class="category-badge">
+                {{ getCategoryCount(category.value) }}
+              </span>
+            }
           </button>
 
         }
@@ -231,7 +237,12 @@
           track food.id
         ) {
 
-          <article class="food-card">
+          <article
+            class="food-card"
+            [class.has-quantity]="
+              getQuantity(food.id) > 0
+            "
+          >
 
             <!-- FOOD IMAGE -->
 
@@ -282,6 +293,9 @@
                     class="variant-row"
                     [class.active]="
                       getSelectedVariant(food)?.id === variant.id
+                    "
+                    [class.has-quantity]="
+                      getQuantity(food.id, variant.id) > 0
                     "
                   >
 
