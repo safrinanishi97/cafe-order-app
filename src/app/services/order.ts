@@ -240,6 +240,31 @@ export class OrderService {
 
 
   // =========================
+  // DELETE ORDER
+  // =========================
+
+  deleteOrder(
+    orderId: number
+  ): void {
+
+    const updatedOrders =
+      this.ordersSignal().filter(
+        order => order.id !== orderId
+      );
+
+
+    this.ordersSignal.set(
+      updatedOrders
+    );
+
+
+    this.saveToStorage(
+      updatedOrders
+    );
+  }
+
+
+  // =========================
   // NEXT ORDER NUMBER
   // =========================
 

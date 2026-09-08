@@ -390,3 +390,113 @@
 
   font-size: 13px;
 }
+
+/* =========================
+   DELETE BUTTON
+   ========================= */
+
+.delete-button {
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 10px 12px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #fee2e2;
+  }
+}
+
+/* =========================
+   CONFIRMATION DIALOG
+   ========================= */
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.confirmation-dialog {
+  width: 100%;
+  max-width: 360px;
+
+  padding: 22px;
+
+  background: #ffffff;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    margin: 0;
+
+    color: #111827;
+    font-size: 20px;
+  }
+
+  p {
+    margin: 10px 0 20px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+
+  gap: 10px;
+
+  button {
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+  }
+}
+
+.keep-button {
+  background: #f3f4f6;
+  color: #111827;
+
+  &:hover {
+    background: #e5e7eb;
+  }
+}
+
+.confirm-delete-button {
+  background: #dc2626;
+  color: #ffffff;
+
+  &:hover {
+    background: #b91c1c;
+  }
+}

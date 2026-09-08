@@ -79,4 +79,39 @@ export class OrderHistory {
   protected onStatusChange( status: 'all' | 'served' | 'cancelled'): void {
     this.selectedStatus.set(status);
   }
+
+
+  // =========================
+  // DELETE ORDER
+  // =========================
+
+  protected readonly orderPendingDelete =
+    signal<Order | null>(null);
+
+  protected openDeleteDialog(
+    order: Order,
+    event: Event
+  ): void {
+
+    event.stopPropagation();
+
+    this.orderPendingDelete.set(order);
+  }
+
+  protected closeDeleteDialog(): void {
+    this.orderPendingDelete.set(null);
+  }
+
+  protected confirmDeleteOrder(): void {
+
+    const order = this.orderPendingDelete();
+
+    if (!order) {
+      return;
+    }
+
+    this.orderService.deleteOrder(order.id);
+
+    this.orderPendingDelete.set(null);
+  }
 }
